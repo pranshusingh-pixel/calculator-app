@@ -50,3 +50,5 @@ Calculator/
 ## 👨‍💻 Author
 
 Pranshu Singh
+Role: B.Tech Electrical Engineering Student
+Interests: Web Development, DSA, Competitive Programming
