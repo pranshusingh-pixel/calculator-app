@@ -4,9 +4,7 @@ A clean and responsive calculator built using HTML, CSS, and Vanilla JavaScript.
 
 ## 🚀 Live Demo
 
-Add your deployed link here:
-
-https://your-project-link.vercel.app
+modern-calculator-dun.vercel.app
 
 ## ✨ Features
 
