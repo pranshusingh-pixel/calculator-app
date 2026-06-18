@@ -49,6 +49,8 @@ Calculator/
 
 ## 👨‍💻 Author
 
-Pranshu Singh
+Pranshu Sing
+
 Role: B.Tech Electrical Engineering Student
+
 Interests: Web Development, DSA, Competitive Programming
