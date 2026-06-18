@@ -16,7 +16,7 @@ body{
 }
 
 .container{ 
-    width: 350px;
+    width: 380px;
     background-color: #111827;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.6);
@@ -70,7 +70,7 @@ button:hover{
 }
 
 .key-zero{
-    grid-column: span 2;
+    grid-column: span ;
     width: 100%;
     border-radius: 14px;
     background-color: #1f2937;

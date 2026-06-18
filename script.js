@@ -1,42 +1,104 @@
 const inputvalue = document.getElementById("user-input");
-const numberButtons = document.querySelectorAll(".key-numbers");
-const calculate = document.querySelectorAll(".operations");
+const buttons = document.querySelectorAll("button");
 
-numberButtons.forEach((item) =>{
-    item.addEventListener("click", (e) => {
-        if(inputvalue.value === "NaN"){
-            inputvalue.innerText = " ";
-    }
-    if(inputvalue.innerText === "0"){
-        inputvalue.innerText = " ";
-    }
-    inputvalue.innerText += e.target.innerHTML.trim();
-    
-})
-}) 
+let expression = "";
 
-calculate.forEach((item) =>{
-    item.addEventListener("click", (e) => {
-        let lastvalue = inputvalue.innerText.substring(inputvalue.innerText.length, inputvalue.innerText.length - 1);
+buttons.forEach((btn) => {
 
-        if(!isNaN(lastvalue) && e.target.innerHTML === "="){
+    btn.addEventListener("click", () => {
 
-            inputvalue.innerText = eval(inputvalue.innerText);
-        }
-        else if(e.target.innerHTML === "AC"){
+        const value = btn.innerText;
+
+        // AC
+        if (value === "AC") {
+            expression = "";
             inputvalue.innerText = "0";
+            return;
         }
-        else if(e.target.innerHTML === "Del"){
-            inputvalue.innerText = inputvalue.innerText.substring(0, inputvalue.innerText.length - 1);
 
-            if(inputvalue.innerText.length === 0){
-                inputvalue.innerText = "0";
-            }
+        // Delete
+        if (value === "Del") {
+            expression = expression.slice(0, -1);
+            inputvalue.innerText = expression || "0";
+            return;
         }
-        else{
-            if(!isNaN(lastvalue)){
-                inputvalue.innerText += e.target.innerHTML;
+
+        // Equal
+        if (value === "=") {
+
+            try {
+
+                let exp = expression;
+
+                // π
+                exp = exp.replace(/π/g, Math.PI);
+
+                // √x  => √25 = 5
+                
+while (/√(\d+(\.\d+)?)/.test(exp)) {
+    exp = exp.replace(
+        /√(\d+(\.\d+)?)/,
+        (_, num) => Math.sqrt(Number(num))
+    );
+}
+
+                // xʸ  => 2xʸ3 = 8
+                while (/(\d+(\.\d+)?)\^(\d+(\.\d+)?)/.test(exp)) {
+    exp = exp.replace(
+        /(\d+(\.\d+)?)\^(\d+(\.\d+)?)/,
+        (_, a, __, b) => Math.pow(Number(a), Number(b))
+    );
+}
+
+                // Percentage
+                // 200%10 = 20
+                while (/(\d+(\.\d+)?)%(\d+(\.\d+)?)/.test(exp)) {
+                    exp = exp.replace(
+                        /(\d+(\.\d+)?)%(\d+(\.\d+)?)/,
+                        (_, a, __, b) => (Number(a) * Number(b)) / 100
+                    );
+                }
+
+                expression = eval(exp).toString();
+
+                inputvalue.innerText = expression;
+
+            } catch {
+
+                expression = "";
+                inputvalue.innerText = "Error";
+
             }
+
+            return;
         }
+
+        // Display symbols
+        if (value === "π") {
+            expression += "π";
+        }
+
+        else if (value === "√") {
+            expression += "√";
+            inputvalue.innerText = expression;
+    return;
+        }
+
+        else if (value === "^") {
+
+    // Agar expression khaali hai to kuch mat karo
+    if (expression.length === 0) return;
+
+    // Display me sirf ^ dikhayega
+    expression += "^";
+}
+
+        else {
+            expression += value;
+        }
+
+        inputvalue.innerText = expression;
+
     });
+
 });
